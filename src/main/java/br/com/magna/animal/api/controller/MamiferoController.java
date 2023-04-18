@@ -52,7 +52,7 @@ public class MamiferoController {
 	@PutMapping(value = "/atualizar")
 	@Transactional
 	public ResponseEntity<DadosListagemMamiferoRecord> atualizar(@RequestBody @Valid DadosAtualizacaoMamiferoRecord dados) {
-		return ResponseEntity.ok(service.atualizarMamifero(dados));
+		return ResponseEntity.ok(new DadosListagemMamiferoRecord(service.atualizarMamifero(dados)));
 	}
 	
 	@DeleteMapping("excluir/{id}")

@@ -64,8 +64,8 @@ class MamiferoControllerTest {
 	
 	@Test
 	void testExcluir() {
-		restTemplate.delete("/mamiferos/excluir/3");
-		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/3", Mamifero.class);
+		restTemplate.delete("/mamiferos/excluir/13");
+		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/13", Mamifero.class);
 		Assert.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 	

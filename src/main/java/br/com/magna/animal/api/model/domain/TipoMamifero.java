@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Table(name = "TB_TIPO_MAMIFERO")
 @Entity
-public class TipoMamifero {
+public class TipoMamifero{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,10 @@ public class TipoMamifero {
 	private Boolean placenta;
 	
 	
+	public Long getId() {
+		return id;
+	}
+
 	public String getNomeTipo() {
 		return nome;
 	}
@@ -37,8 +41,6 @@ public class TipoMamifero {
 	public Boolean getPlacenta() {
 		return placenta;
 	}
-	public Long getIdTipo() {
-		return id;
-	}
+
 
 }

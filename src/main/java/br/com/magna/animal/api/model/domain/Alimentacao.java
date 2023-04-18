@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Table(name = "TB_ALIMENTACAO")
 @Entity
-public class Alimentacao {
+public class Alimentacao{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,11 @@ public class Alimentacao {
 	@Column(name = "fonte_vegetal")
 	private Boolean fonteVegetal;
 	
-	
-	public Long getIdAlimentacao() {
+
+	public Long getId() {
 		return id;
 	}
+	
 	public String getNomeAlimentacao() {
 		return nome;
 	}

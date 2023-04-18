@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Table(name = "TB_MAMIFERO")
 @Entity
 
-public class Mamifero {
+public class Mamifero extends AbstractEntity<Mamifero, Long>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +41,8 @@ public class Mamifero {
 	private String tipoMamifero;
 	@Column(name = "Alimentacao")
 	private String alimentacao;
-	
-	
 
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -150,5 +149,7 @@ public class Mamifero {
 		}
 		
 	}
+
+
 
 }
