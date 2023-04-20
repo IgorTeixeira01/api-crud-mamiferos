@@ -1,3 +1,0 @@
-INSERT INTO tb_alimentacao (var_nome, bool_fonte_animal, bool_fonte_vegetal) VALUES('Carnivoro', true, false),('Herbivoro', false, true),('Onivoro', true, true);
-INSERT INTO tb_tipo_mamifero (var_nome, bool_mamilos, bool_marsupio, bool_placenta) VALUES('Monotremado', false, false, false),('Marsupial', true, true, true),('Placentario', true, false, true);
-INSERT INTO tb_ambiente (var_nome) VALUES('Aereo'),('Aquatico'),('Terrestre');
