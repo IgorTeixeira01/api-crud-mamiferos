@@ -1,6 +1,8 @@
 package br.com.magna.animal.api.controller;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,38 +35,38 @@ class MamiferoControllerTest {
 	void testCadastrarTerrestre() {
 		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord("Cachorro", "Preto", 20.0, VertebradoInvertebrado.VERTEBRADO, TipoSangue.QUENTE, true, true, 4, "Placentario", "Carnivoro");
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
-		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 	
 	@Test
 	void testCadastrarAereo() {
 		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord("Morcego", "Preto", 3.0, VertebradoInvertebrado.VERTEBRADO, TipoSangue.QUENTE, true, true, 0, "Placentario", "Carnivoro");
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
-		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 	
 	@Test
 	void testCadastrarAquatico() {
 		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord("Baleia", "Azul", 1000.0, VertebradoInvertebrado.VERTEBRADO, TipoSangue.QUENTE, false, true, 0, "Placentario", "Carnivoro");
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
-		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 	
 	@Test
 	void testListar() {
 		ResponseEntity<String> response = restTemplate.exchange("/mamiferos/listagem?page=0&size=10", 
 		HttpMethod.GET,null, String.class);
-		Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-		Assert.assertNotNull(response.getBody());
-		Assert.assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertNotNull(response.getBody());
+		assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
 	}
 	
 	@Test
 	void testListarPorId() {
 		ResponseEntity<String> response = restTemplate.exchange("/mamiferos/listagem/1", 
 				HttpMethod.GET,null, String.class);
-				Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-				Assert.assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+				assertEquals(HttpStatus.OK, response.getStatusCode());
+				assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
 	}
 	
 	@Test
@@ -72,8 +74,8 @@ class MamiferoControllerTest {
 		DadosAtualizacaoMamiferoRecord dados = new DadosAtualizacaoMamiferoRecord(1L, "Cachorro", "Preto", 22.5, true, 4);
 		ResponseEntity<DadosDetalhamentoMamiferoRecord> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
 				new HttpEntity<>(dados), DadosDetalhamentoMamiferoRecord.class);
-		Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-		Assert.assertEquals("Cachorro", response.getBody().nome()); 
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals("Cachorro", response.getBody().nome()); 
 	}
 	
 	@Test
@@ -81,8 +83,8 @@ class MamiferoControllerTest {
 		DadosAtualizacaoMamiferoRecord dados = new DadosAtualizacaoMamiferoRecord(2L, "Morcego", "Preto", 5.0, true, 2);
 		ResponseEntity<DadosDetalhamentoMamiferoRecord> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
 				new HttpEntity<>(dados), DadosDetalhamentoMamiferoRecord.class);
-		Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-		Assert.assertEquals("Morcego", response.getBody().nome()); 
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals("Morcego", response.getBody().nome()); 
 	}
 	
 	@Test
@@ -90,15 +92,15 @@ class MamiferoControllerTest {
 		DadosAtualizacaoMamiferoRecord dados = new DadosAtualizacaoMamiferoRecord(3L, "Baleia", "Azul", 1000.5, false, 0);
 		ResponseEntity<DadosDetalhamentoMamiferoRecord> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
 				new HttpEntity<>(dados), DadosDetalhamentoMamiferoRecord.class);
-		Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-		Assert.assertEquals("Baleia", response.getBody().nome()); 
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals("Baleia", response.getBody().nome()); 
 	}
 	
 	@Test
 	void testExcluir() {
 		restTemplate.delete("/mamiferos/excluir/5");
 		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/5", Mamifero.class);
-		Assert.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 	
 }

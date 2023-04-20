@@ -1,6 +1,7 @@
 package br.com.magna.animal.api.exception;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ class TratadorDeErrosTest {
 	void testCadastrar() {
 		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord(null, null, null, null, null, null, null, null, null, null);
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
-		Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 	
 	@Test
 	void testExcluir() {
 		restTemplate.delete("/mamiferos/excluir/6");
 		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/6", Mamifero.class);
-		Assert.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 	
 	

@@ -1,6 +1,8 @@
 package br.com.magna.animal.api.controller;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ class AlimentacaoControllerTest {
 	@Test
 	void testListagemAlimentacoes() {
 		ResponseEntity<Alimentacao> responseEntity = restTemplate.getForEntity("/alimentacao/listagem", Alimentacao.class);
-		Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-		Assert.assertNotNull(responseEntity.getBody());
+		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+		assertNotNull(responseEntity.getBody());
 	}
 }
