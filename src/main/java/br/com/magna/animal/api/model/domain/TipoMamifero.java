@@ -13,15 +13,15 @@ public class TipoMamifero{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "PK_ID")
 	private Long id;
-	@Column(name = "nome")
+	@Column(name = "VAR_NOME")
 	private String nome;
-	@Column(name = "mamilos")
+	@Column(name = "BOOL_MAMILOS")
 	private Boolean mamilos;
-	@Column(name = "marsupio")
+	@Column(name = "BOOL_MARSUPIO")
 	private Boolean marsupio;
-	@Column(name = "placenta")
+	@Column(name = "BOOL_PLACENTA")
 	private Boolean placenta;
 	
 	
@@ -29,7 +29,7 @@ public class TipoMamifero{
 		return id;
 	}
 
-	public String getNomeTipo() {
+	public String getNome() {
 		return nome;
 	}
 	public Boolean getMamilos() {

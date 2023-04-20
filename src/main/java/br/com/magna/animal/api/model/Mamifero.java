@@ -17,30 +17,32 @@ public class Mamifero extends AbstractEntity<Mamifero, Long>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "PK_ID")
 	private Long id;
-	@Column(name = "nome")
+	@Column(name = "VAR_NOME")
 	private String nome;
-	@Column(name = "cor")
+	@Column(name = "VAR_COR")
 	private String cor;
-	@Column(name = "peso")
+	@Column(name = "DOUBLE_PESO")
 	private Double peso;
-	@Column(name = "vertebrado_invertebrado")
+	@Column(name = "VAR_VERTEBRADO_INVERTEBRADO")
 	@Enumerated(EnumType.STRING)
 	private VertebradoInvertebrado vertebradoInvertebrado;
-	@Column(name = "tipo_sangue")
+	@Column(name = "VAR_TIPO_SANGUE")
 	@Enumerated(EnumType.STRING)
 	private TipoSangue tipoSangue;
-	@Column(name = "pelos")
+	@Column(name = "BOOL_PELOS")
 	private Boolean pelos;
-	@Column(name = "glandulas_mamarias")
+	@Column(name = "BOOL_GLANDULAS_MAMARIAS")
 	private Boolean glandulasMamarias;
-	@Column(name = "patas")
+	@Column(name = "INT_PATAS")
 	private Integer patas; 
-	@Column(name = "tipo_mamifero")
+	@Column(name = "VAR_TIPO_MAMIFERO")
 	private String tipoMamifero;
-	@Column(name = "Alimentacao")
+	@Column(name = "VAR_ALIMENTACAO")
 	private String alimentacao;
+	@Column(name = "VAR_AMBIENTE")
+	private String ambiente;
 
 	@Override
 	public Long getId() {
@@ -125,6 +127,14 @@ public class Mamifero extends AbstractEntity<Mamifero, Long>{
 
 	public void setAlimentacao(String alimentacao) {
 		this.alimentacao = alimentacao;
+	}
+	
+	public String getAmbiente() {
+		return ambiente;
+	}
+
+	public void setAmbiente(String ambiente) {
+		this.ambiente = ambiente;
 	}
 	
 	public void atualizarInformacoes(DadosAtualizacaoMamiferoRecord dados) {

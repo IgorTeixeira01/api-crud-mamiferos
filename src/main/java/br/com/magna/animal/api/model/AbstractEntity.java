@@ -54,6 +54,4 @@ public abstract class AbstractEntity<T, ID> {
 	}
 
 	public abstract Long getId();
-
-//	public abstract Long setId(ID id);
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.magna.animal.api.model.historic.MamiferoHistoric;
 
 @Repository
-public interface MamiferoRepositoryHistoric extends JpaRepository<MamiferoHistoric, Long>{
+public interface MamiferoHistoricRepository extends JpaRepository<MamiferoHistoric, Long>{
 
 }

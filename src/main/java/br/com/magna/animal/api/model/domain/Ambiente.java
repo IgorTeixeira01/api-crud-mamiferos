@@ -7,9 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_ALIMENTACAO")
+@Table(name = "TB_AMBIENTE")
 @Entity
-public class Alimentacao{
+public class Ambiente{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +17,6 @@ public class Alimentacao{
 	private Long id;
 	@Column(name = "VAR_NOME")
 	private String nome;
-	@Column(name = "BOOL_FONTE_ANIMAL")
-	private Boolean fonteAnimal;
-	@Column(name = "BOOL_FONTE_VEGETAL")
-	private Boolean fonteVegetal;
 	
 
 	public Long getId() {
@@ -29,11 +25,5 @@ public class Alimentacao{
 	
 	public String getNome() {
 		return nome;
-	}
-	public Boolean getFonteVegetal() {
-		return fonteVegetal;
-	}
-	public Boolean getFonteAnimal() {
-		return fonteAnimal;
 	}
 }

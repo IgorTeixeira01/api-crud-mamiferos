@@ -11,11 +11,11 @@ br\com\magna\animal\api\repository\domain\TipoMamiferoRepository.class
 br\com\magna\animal\api\model\AbstractEntity.class
 br\com\magna\animal\api\service\MamiferoService.class
 br\com\magna\animal\api\infra\exception\TratadorDeErros.class
+br\com\magna\animal\api\infra\springdoc\SpringDocConfigurations.class
 br\com\magna\animal\api\service\domain\AlimentacaoService.class
 br\com\magna\animal\api\model\Mamifero.class
 br\com\magna\animal\api\record\DadosListagemCadastroMamiferoRecord.class
 br\com\magna\animal\api\model\TipoSangue.class
-br\com\magna\animal\api\infra\springdoc\SpringDocConfiguration.class
 br\com\magna\animal\api\ApiApplication.class
 br\com\magna\animal\api\model\historic\MamiferoHistoric.class
 br\com\magna\animal\api\repository\MamiferoRepository.class
@@ -23,6 +23,5 @@ br\com\magna\animal\api\record\DadosCadastroMamiferoRecord.class
 br\com\magna\animal\api\model\VertebradoInvertebrado.class
 br\com\magna\animal\api\record\DadosListagemMamiferoRecord.class
 br\com\magna\animal\api\record\domain\DadosListagemAlimentacaoRecord.class
-br\com\magna\animal\api\infra\springdoc\SpringDocConfiguration$SpringDocConfigurations.class
 br\com\magna\animal\api\service\domain\TipoMamiferoService.class
 br\com\magna\animal\api\repository\historic\MamiferoRepositoryHistoric.class

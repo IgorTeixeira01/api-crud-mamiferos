@@ -9,9 +9,9 @@ import jakarta.validation.constraints.PositiveOrZero;
 public record DadosAtualizacaoMamiferoRecord(
 		@NotNull
 		Long id, 
-		@Pattern(regexp = "^[A-Z][a-zA-Z\\- ]*$", message = "O campo deve iniciar com letra maiuscula e conter apenas letras")
+		@Pattern(regexp="^[A-Z][a-zA-Z]*(?:[- ][A-Z][a-zA-Z]*)*$", message = "As palavras devem iniciar com letra maiuscula e conter apenas letras, espaço ou hífen")
 		String nome, 
-		@Pattern(regexp = "^[A-Z][a-zA-Z\\- ]*$", message = "O campo deve iniciar com letra maiuscula e conter apenas letras")
+		@Pattern(regexp = "^[A-Z][a-zA-Z\\- ]*$", message = "O campo deve iniciar com letra maiuscula e conter apenas letras, espaço ou hífen")
 		String cor, 
 		@Positive
 		Double peso,

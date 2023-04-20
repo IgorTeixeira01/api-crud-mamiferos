@@ -40,14 +40,6 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
@@ -62,12 +54,42 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.jmeter</groupId>
+			<artifactId>ApacheJMeter_core</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jmeter</groupId>
+			<artifactId>ApacheJMeter_http</artifactId>
+			<version>5.4.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>3.7.0</version>
+				<executions>
+					<execution>
+						<id>jmeter-tests</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<testFilesDirectory>${project.basedir}/src/test/jmeter</testFilesDirectory>
+					<propertiesUser>
+						<jmeter.save.saveservice.output_format>xml</jmeter.save.saveservice.output_format>
+					</propertiesUser>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

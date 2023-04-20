@@ -4,7 +4,7 @@ import br.com.magna.animal.api.model.Mamifero;
 import br.com.magna.animal.api.model.TipoSangue;
 import br.com.magna.animal.api.model.VertebradoInvertebrado;
 
-public record DadosListagemMamiferoRecord(Long id, 
+public record DadosDetalhamentoMamiferoRecord(Long id, 
 		String nome, 
 		String cor, 
 		Double peso,
@@ -14,9 +14,10 @@ public record DadosListagemMamiferoRecord(Long id,
 		Boolean glandulasMamarias,
 		Integer patas, 
 		String tipoMamifero, 
-		String alimentacao) {
+		String alimentacao,
+		String ambiente) {
 
-	public DadosListagemMamiferoRecord(Mamifero mamifero) {
+	public DadosDetalhamentoMamiferoRecord(Mamifero mamifero) {
 		this(mamifero.getId(), 
 				mamifero.getNome(), 
 				mamifero.getCor(), 
@@ -27,7 +28,8 @@ public record DadosListagemMamiferoRecord(Long id,
 				mamifero.getGlandulasMamarias(), 
 				mamifero.getPatas(), 
 				mamifero.getTipoMamifero(),
-				mamifero.getAlimentacao());
+				mamifero.getAlimentacao(),
+				mamifero.getAmbiente());
 	}
 
 

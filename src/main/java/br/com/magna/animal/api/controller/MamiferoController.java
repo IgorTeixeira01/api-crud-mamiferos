@@ -19,8 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.magna.animal.api.model.Mamifero;
 import br.com.magna.animal.api.record.DadosAtualizacaoMamiferoRecord;
 import br.com.magna.animal.api.record.DadosCadastroMamiferoRecord;
-import br.com.magna.animal.api.record.DadosListagemCadastroMamiferoRecord;
-import br.com.magna.animal.api.record.DadosListagemMamiferoRecord;
+import br.com.magna.animal.api.record.DadosDetalhamentoMamiferoRecord;
 import br.com.magna.animal.api.service.MamiferoService;
 import jakarta.validation.Valid;
 
@@ -33,26 +32,26 @@ public class MamiferoController {
 	
 	@PostMapping(value = "/cadastrar")
     @Transactional
-	public ResponseEntity<DadosListagemCadastroMamiferoRecord> cadastrar(@RequestBody @Valid DadosCadastroMamiferoRecord dados, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<DadosDetalhamentoMamiferoRecord> cadastrar(@RequestBody @Valid DadosCadastroMamiferoRecord dados, UriComponentsBuilder uriBuilder) {
 		Mamifero mamifero = service.cadastrarMamifero(dados);
 		var uri = uriBuilder.path("/mamiferos/{id}").buildAndExpand(mamifero.getId()).toUri(); 
-        return ResponseEntity.created(uri).body(new DadosListagemCadastroMamiferoRecord(mamifero));
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMamiferoRecord(mamifero));
 	}
 	
 	@GetMapping(value = "/listagem") 
-	public ResponseEntity<Page<DadosListagemMamiferoRecord>> listar(@PageableDefault(sort ="id", size = 10)Pageable paginacao){
+	public ResponseEntity<Page<DadosDetalhamentoMamiferoRecord>> listar(@PageableDefault(sort ="id", size = 10)Pageable paginacao){
         return ResponseEntity.ok(service.listarTodos(paginacao));
 	}
 	
 	@GetMapping("/listagem/{id}")
-	public ResponseEntity<DadosListagemMamiferoRecord> listarPorId(@PathVariable Long id) {
+	public ResponseEntity<DadosDetalhamentoMamiferoRecord> listarPorId(@PathVariable Long id) {
 		return ResponseEntity.ok(service.listarPorId(id));
 	}
 	
 	@PutMapping(value = "/atualizar")
 	@Transactional
-	public ResponseEntity<DadosListagemMamiferoRecord> atualizar(@RequestBody @Valid DadosAtualizacaoMamiferoRecord dados) {
-		return ResponseEntity.ok(new DadosListagemMamiferoRecord(service.atualizarMamifero(dados)));
+	public ResponseEntity<DadosDetalhamentoMamiferoRecord> atualizar(@RequestBody @Valid DadosAtualizacaoMamiferoRecord dados) {
+		return ResponseEntity.ok(new DadosDetalhamentoMamiferoRecord(service.atualizarMamifero(dados)));
 	}
 	
 	@DeleteMapping("excluir/{id}")
