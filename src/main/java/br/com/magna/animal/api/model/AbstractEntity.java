@@ -9,17 +9,17 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity<T, ID> {
 
-	@Column(name = "USER_DATABASE_CREATE", nullable = false)
+	@Column(name = "USER_DATABASE_CREATE")
 	private String userDatabaseCreate = "admin";
 	
-	@Column(name = "USER_DATABASE_UPDATE", nullable = false)
+	@Column(name = "USER_DATABASE_UPDATE")
 	private String userDatabaseUpdate = "admin";
 
-	@Column(name = "TIME_STAMP_FIRST_CREATED", nullable = false)
-	private ZonedDateTime timeStampFirstCreated;
+	@Column(name = "TIMESTAMP_FIRST_CREATED")
+	private ZonedDateTime timestampFirstCreated;
 
-	@Column(name = "TIME_STAMP_LAST_UPDATE", nullable = false)
-	private ZonedDateTime timeStampLastUpdate;
+	@Column(name = "TIMESTAMP_LAST_UPDATE")
+	private ZonedDateTime timestampLastUpdate;
 	
 	@Column(name = "TIMESTAMP_TIME_ZOME")
 	private ZoneId timestampTimeZone;
@@ -38,15 +38,15 @@ public abstract class AbstractEntity<T, ID> {
 	}
 
 	public ZonedDateTime getTimestampFirstCreated() {
-		return timeStampFirstCreated;
+		return timestampFirstCreated;
 	}
 
 	public void setTimestampFirstCreated(ZonedDateTime timestampFirstCreated) {
-		this.timeStampFirstCreated = timestampFirstCreated;
+		this.timestampFirstCreated = timestampFirstCreated;
 	}
 
 	public void setTimestampLastUpdate(ZonedDateTime timestampLastUpdate) {
-		this.timeStampLastUpdate = timestampLastUpdate;
+		this.timestampLastUpdate = timestampLastUpdate;
 	}
 
 	public void setTimestampTimeZone(ZoneId timestampTimeZone) {
