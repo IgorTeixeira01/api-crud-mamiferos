@@ -32,8 +32,8 @@ class TratadorDeErrosTest {
 	
 	@Test
 	void testExcluir() {
-		restTemplate.delete("/mamiferos/excluir/6");
-		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/6", Mamifero.class);
+		restTemplate.delete("/mamiferos/excluir/99");
+		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/99", Mamifero.class);
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 	

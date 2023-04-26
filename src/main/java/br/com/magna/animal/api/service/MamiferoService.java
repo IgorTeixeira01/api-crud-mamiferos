@@ -30,26 +30,26 @@ public class MamiferoService {
 
 	@Autowired
 	private MamiferoRepository mamiferoRepository;
-	
+
 	@Autowired
 	private AlimentacaoRepository alimentacaoRepository;
-	
+
 	@Autowired
 	private TipoMamiferoRepository tipoMamiferoRepository;
-	
+
 	@Autowired
 	private AmbienteRepository ambienteRepository;
 
 	@Autowired
 	private MamiferoHistoricRepository mamiferoHistoricRepository;
-	
+
 	private String dbUser = "Admin";
-	
+
 	private String dbUser2 = "Admin2";
-	
-	List<String> nomes = Arrays.asList("Golfinho", "Baleia", "Peixe", 
-			"Aquatico", "Marinho", "Boto", "Orca","Foca", "Urso", "Morsa");
-	
+
+	List<String> nomes = Arrays.asList("Golfinho", "Baleia", "Peixe", "Aquatico", "Marinho", "Boto", "Orca", "Foca",
+			"Urso", "Morsa");
+
 	public Mamifero cadastrarMamifero(DadosCadastroMamiferoRecord dados) {
 		Mamifero mamifero = new Mamifero();
 		mamifero.setUserDatabaseCreate(dbUser);
@@ -66,14 +66,14 @@ public class MamiferoService {
 		mamifero.setTipoMamifero(tipoMamifero.getNome());
 		Alimentacao alimentacao = alimentacaoRepository.verificandoAlimentacao(dados.alimentacao());
 		mamifero.setAlimentacao(alimentacao.getNome());
-		
-		if(dados.nome().contains("Morcego")) {
+
+		if (dados.nome().contains("Morcego")) {
 			Ambiente ambiente = ambienteRepository.verificandoAmbiente("Aereo");
 			mamifero.setAmbiente(ambiente.getNome());
-		}else if(nomes.stream().anyMatch(dados.nome()::contains)) {
+		} else if (nomes.stream().anyMatch(dados.nome()::contains)) {
 			Ambiente ambiente = ambienteRepository.verificandoAmbiente("Aquatico");
 			mamifero.setAmbiente(ambiente.getNome());
-		}else {
+		} else {
 			Ambiente ambiente = ambienteRepository.verificandoAmbiente("Terrestre");
 			mamifero.setAmbiente(ambiente.getNome());
 		}
@@ -81,17 +81,17 @@ public class MamiferoService {
 		mamifero.setTimestampFirstCreated(ZonedDateTime.now());
 		mamifero.setTimestampLastUpdate(ZonedDateTime.now());
 		mamifero.setTimestampTimeZone(ZonedDateTime.now().getZone());
-		
+
 		mamiferoRepository.save(mamifero);
-		
+
 		MamiferoHistoric mamiferoHistoric = cadastrarMamiferoHistoric(mamifero);
 		mamiferoHistoricRepository.save(mamiferoHistoric);
-		
+
 		return mamifero;
 	}
 
 	public Page<DadosDetalhamentoMamiferoRecord> listarTodos(Pageable paginacao) {
-		return mamiferoRepository.findAll(paginacao).map(DadosDetalhamentoMamiferoRecord::new); 
+		return mamiferoRepository.findAll(paginacao).map(DadosDetalhamentoMamiferoRecord::new);
 	}
 
 	public DadosDetalhamentoMamiferoRecord listarPorId(Long id) {
@@ -104,15 +104,17 @@ public class MamiferoService {
 		MamiferoHistoric mamiferoHistoric = cadastrarMamiferoHistoric(mamifero);
 		mamiferoHistoricRepository.save(mamiferoHistoric);
 		mamifero.atualizarInformacoes(dados);
-		if(dados.nome().contains("Morcego")) {
-			Ambiente ambiente = ambienteRepository.verificandoAmbiente("Aereo");
-			mamifero.setAmbiente(ambiente.getNome());
-		}else if(nomes.stream().anyMatch(dados.nome()::contains)) {
-			Ambiente ambiente = ambienteRepository.verificandoAmbiente("Aquatico");
-			mamifero.setAmbiente(ambiente.getNome());
-		}else {
-			Ambiente ambiente = ambienteRepository.verificandoAmbiente("Terrestre");
-			mamifero.setAmbiente(ambiente.getNome());
+		if (dados.nome() != null) {
+			if (dados.nome().contains("Morcego")) {
+				Ambiente ambiente = ambienteRepository.verificandoAmbiente("Aereo");
+				mamifero.setAmbiente(ambiente.getNome());
+			} else if (nomes.stream().anyMatch(dados.nome()::contains)) {
+				Ambiente ambiente = ambienteRepository.verificandoAmbiente("Aquatico");
+				mamifero.setAmbiente(ambiente.getNome());
+			} else {
+				Ambiente ambiente = ambienteRepository.verificandoAmbiente("Terrestre");
+				mamifero.setAmbiente(ambiente.getNome());
+			}
 		}
 		mamifero.setUserDatabaseCreate(dbUser);
 		mamifero.setUserDatabaseUpdate(dbUser2);
@@ -128,10 +130,10 @@ public class MamiferoService {
 			throw new EntityNotFoundException();
 		}
 	}
-	
-	public MamiferoHistoric cadastrarMamiferoHistoric (Mamifero mamifero) {
+
+	public MamiferoHistoric cadastrarMamiferoHistoric(Mamifero mamifero) {
 		MamiferoHistoric mamiferoHistoric = new MamiferoHistoric();
-		
+
 		mamiferoHistoric.setIdMamifero(mamifero.getId());
 		mamiferoHistoric.setNome(mamifero.getNome());
 		mamiferoHistoric.setCor(mamifero.getCor());
@@ -145,13 +147,13 @@ public class MamiferoService {
 		mamiferoHistoric.setTipoMamifero(tipoMamifero.getNome());
 		Alimentacao alimentacao = alimentacaoRepository.verificandoAlimentacao(mamifero.getAlimentacao());
 		mamiferoHistoric.setAlimentacao(alimentacao.getNome());
-		
+
 		mamiferoHistoric.setUserDatabaseCreate(mamifero.getUserDatabaseCreate());
 		mamiferoHistoric.setUserDatabaseUpdate(dbUser2);
 		mamiferoHistoric.setTimestampFirstCreated(mamifero.getTimestampFirstCreated());
 		mamiferoHistoric.setTimestampLastUpdate(ZonedDateTime.now());
 		mamiferoHistoric.setTimestampTimeZone(ZonedDateTime.now().getZone());
-		
+
 		return mamiferoHistoric;
 	}
 

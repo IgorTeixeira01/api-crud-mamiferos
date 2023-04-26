@@ -63,7 +63,7 @@ class MamiferoControllerTest {
 	
 	@Test
 	void testListarPorId() {
-		ResponseEntity<String> response = restTemplate.exchange("/mamiferos/listagem/1", 
+		ResponseEntity<String> response = restTemplate.exchange("/mamiferos/detalhar/12", 
 				HttpMethod.GET,null, String.class);
 				assertEquals(HttpStatus.OK, response.getStatusCode());
 				assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
@@ -98,8 +98,8 @@ class MamiferoControllerTest {
 	
 	@Test
 	void testExcluir() {
-		restTemplate.delete("/mamiferos/excluir/7");
-		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/7", Mamifero.class);
+		restTemplate.delete("/mamiferos/excluir/5");
+		ResponseEntity<Mamifero> response = restTemplate.getForEntity("/excluir/5", Mamifero.class);
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
 	

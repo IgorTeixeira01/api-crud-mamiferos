@@ -43,7 +43,7 @@ public class MamiferoController {
         return ResponseEntity.ok(service.listarTodos(paginacao));
 	}
 	
-	@GetMapping("/listagem/{id}")
+	@GetMapping("/detalhar/{id}")
 	public ResponseEntity<DadosDetalhamentoMamiferoRecord> listarPorId(@PathVariable Long id) {
 		return ResponseEntity.ok(service.listarPorId(id));
 	}
