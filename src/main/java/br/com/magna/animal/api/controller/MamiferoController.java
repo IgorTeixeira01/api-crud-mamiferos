@@ -1,11 +1,14 @@
 package br.com.magna.animal.api.controller;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,12 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.magna.animal.api.dto.MamiferoAtualizacaoDTO;
+import br.com.magna.animal.api.dto.MamiferoCadastroDTO;
 import br.com.magna.animal.api.model.Mamifero;
-import br.com.magna.animal.api.record.DadosAtualizacaoMamiferoRecord;
-import br.com.magna.animal.api.record.DadosCadastroMamiferoRecord;
-import br.com.magna.animal.api.record.DadosDetalhamentoMamiferoRecord;
 import br.com.magna.animal.api.service.MamiferoService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("mamiferos")
@@ -32,26 +33,27 @@ public class MamiferoController {
 	
 	@PostMapping(value = "/cadastrar")
     @Transactional
-	public ResponseEntity<DadosDetalhamentoMamiferoRecord> cadastrar(@RequestBody @Valid DadosCadastroMamiferoRecord dados, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<Mamifero> cadastrar(@RequestBody @Validated MamiferoCadastroDTO dados, UriComponentsBuilder uriBuilder) {
 		Mamifero mamifero = service.cadastrarMamifero(dados);
-		var uri = uriBuilder.path("/mamiferos/{id}").buildAndExpand(mamifero.getId()).toUri(); 
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoMamiferoRecord(mamifero));
+		URI uri = uriBuilder.path("/mamiferos/{id}").buildAndExpand(mamifero.getId()).toUri(); 
+        return ResponseEntity.created(uri).body(service.listarPorId(mamifero.getId()));
 	}
 	
 	@GetMapping(value = "/listagem") 
-	public ResponseEntity<Page<DadosDetalhamentoMamiferoRecord>> listar(@PageableDefault(sort ="id", size = 10)Pageable paginacao){
+	public ResponseEntity<Page<Mamifero>> listar(@PageableDefault(sort ="id", size = 10)Pageable paginacao){
         return ResponseEntity.ok(service.listarTodos(paginacao));
 	}
 	
 	@GetMapping("/detalhar/{id}")
-	public ResponseEntity<DadosDetalhamentoMamiferoRecord> listarPorId(@PathVariable Long id) {
+	public ResponseEntity<Mamifero> detalhar(@PathVariable Long id) {
 		return ResponseEntity.ok(service.listarPorId(id));
 	}
+
 	
 	@PutMapping(value = "/atualizar")
 	@Transactional
-	public ResponseEntity<DadosDetalhamentoMamiferoRecord> atualizar(@RequestBody @Valid DadosAtualizacaoMamiferoRecord dados) {
-		return ResponseEntity.ok(new DadosDetalhamentoMamiferoRecord(service.atualizarMamifero(dados)));
+	public ResponseEntity<Mamifero> atualizar(@RequestBody @Validated MamiferoAtualizacaoDTO dados) {
+		return ResponseEntity.ok(service.atualizarMamifero(dados));
 	}
 	
 	@DeleteMapping("excluir/{id}")

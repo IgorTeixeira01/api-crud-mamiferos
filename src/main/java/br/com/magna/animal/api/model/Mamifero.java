@@ -1,6 +1,8 @@
 package br.com.magna.animal.api.model;
 
-import br.com.magna.animal.api.record.DadosAtualizacaoMamiferoRecord;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.com.magna.animal.api.dto.MamiferoAtualizacaoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Table(name = "TB_MAMIFERO")
 @Entity
-
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Mamifero extends AbstractEntity<Mamifero, Long>{
 
 	@Id
@@ -137,25 +139,25 @@ public class Mamifero extends AbstractEntity<Mamifero, Long>{
 		this.ambiente = ambiente;
 	}
 	
-	public void atualizarInformacoes(DadosAtualizacaoMamiferoRecord dados) {
-		if(dados.nome() != null) {
-			this.nome = dados.nome();
+	public void atualizarInformacoes(MamiferoAtualizacaoDTO dados) {
+		if(dados.getNome() != null) {
+			this.nome = dados.getNome();
 		}
 		
-		if(dados.cor() != null) {
-			this.cor = dados.cor();
+		if(dados.getCor() != null) {
+			this.cor = dados.getCor();
 		}
 		
-		if(dados.peso() != null) {
-			this.peso = dados.peso();
+		if(dados.getPeso() != null) {
+			this.peso = dados.getPeso();
 		}
 		
-		if(dados.pelos() != null) {
-			this.pelos = dados.pelos();
+		if(dados.getPelos() != null) {
+			this.pelos = dados.getPelos();
 		}
 		
-		if(dados.patas() != null) {
-			this.patas = dados.patas();
+		if(dados.getPatas() != null) {
+			this.patas = dados.getPatas();
 		}
 		
 	}

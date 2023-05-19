@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.magna.animal.api.record.domain.DadosDetalhamentoAlimentacaoRecord;
+import br.com.magna.animal.api.model.domain.Alimentacao;
 import br.com.magna.animal.api.service.domain.AlimentacaoService;
 
 @RestController
@@ -20,7 +20,7 @@ public class AlimentacaoController {
 	private AlimentacaoService service;
 	
 	@GetMapping(value = "/listagem") 
-	public ResponseEntity<Page<DadosDetalhamentoAlimentacaoRecord>> listar(@PageableDefault(sort ="id", size = 10) Pageable paginacao){
+	public ResponseEntity<Page<Alimentacao>> listar(@PageableDefault(sort ="id", size = 10) Pageable paginacao){
 		return ResponseEntity.ok(service.listarTodos(paginacao));
 	}
 	

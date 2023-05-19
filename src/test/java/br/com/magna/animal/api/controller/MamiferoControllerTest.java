@@ -16,12 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import br.com.magna.animal.api.dto.MamiferoAtualizacaoDTO;
+import br.com.magna.animal.api.dto.MamiferoCadastroDTO;
 import br.com.magna.animal.api.model.Mamifero;
 import br.com.magna.animal.api.model.TipoSangue;
 import br.com.magna.animal.api.model.VertebradoInvertebrado;
-import br.com.magna.animal.api.record.DadosAtualizacaoMamiferoRecord;
-import br.com.magna.animal.api.record.DadosCadastroMamiferoRecord;
-import br.com.magna.animal.api.record.DadosDetalhamentoMamiferoRecord;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,21 +32,51 @@ class MamiferoControllerTest {
 	
 	@Test
 	void testCadastrarTerrestre() {
-		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord("Cachorro", "Preto", 20.0, VertebradoInvertebrado.VERTEBRADO, TipoSangue.QUENTE, true, true, 4, "Placentario", "Carnivoro");
+		MamiferoCadastroDTO dados = new MamiferoCadastroDTO();
+		dados.setNome("Cachorro");
+		dados.setCor("Preto");
+		dados.setPeso(40.0);
+		dados.setVertebradoInvertebrado(VertebradoInvertebrado.VERTEBRADO);
+		dados.setTipoSangue(TipoSangue.QUENTE);
+		dados.setPelos(true);
+		dados.setGlandulasMamarias(true);
+		dados.setPatas(4);
+		dados.setTipoMamifero("Placentario");
+		dados.setAlimentacao("Carnivoro");
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 	
 	@Test
 	void testCadastrarAereo() {
-		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord("Morcego", "Preto", 3.0, VertebradoInvertebrado.VERTEBRADO, TipoSangue.QUENTE, true, true, 0, "Placentario", "Carnivoro");
+		MamiferoCadastroDTO dados = new MamiferoCadastroDTO();
+		dados.setNome("Morcego");
+		dados.setCor("Preto");
+		dados.setPeso(0.100);
+		dados.setVertebradoInvertebrado(VertebradoInvertebrado.VERTEBRADO);
+		dados.setTipoSangue(TipoSangue.QUENTE);
+		dados.setPelos(true);
+		dados.setGlandulasMamarias(true);
+		dados.setPatas(4);
+		dados.setTipoMamifero("Placentario");
+		dados.setAlimentacao("Carnivoro");
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 	
 	@Test
 	void testCadastrarAquatico() {
-		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord("Baleia", "Azul", 1000.0, VertebradoInvertebrado.VERTEBRADO, TipoSangue.QUENTE, false, true, 0, "Placentario", "Carnivoro");
+		MamiferoCadastroDTO dados = new MamiferoCadastroDTO();
+		dados.setNome("Baleia");
+		dados.setCor("Azul");
+		dados.setPeso(1000.0);
+		dados.setVertebradoInvertebrado(VertebradoInvertebrado.VERTEBRADO);
+		dados.setTipoSangue(TipoSangue.QUENTE);
+		dados.setPelos(false);
+		dados.setGlandulasMamarias(true);
+		dados.setPatas(0);
+		dados.setTipoMamifero("Placentario");
+		dados.setAlimentacao("Carnivoro");
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
@@ -71,29 +100,47 @@ class MamiferoControllerTest {
 	
 	@Test
 	void testAtualizarTerrestre() {
-		DadosAtualizacaoMamiferoRecord dados = new DadosAtualizacaoMamiferoRecord(1L, "Cachorro", "Preto", 22.5, true, 4);
-		ResponseEntity<DadosDetalhamentoMamiferoRecord> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
-				new HttpEntity<>(dados), DadosDetalhamentoMamiferoRecord.class);
+		MamiferoAtualizacaoDTO dados = new MamiferoAtualizacaoDTO();
+		dados.setId(1L);
+		dados.setNome("Cachorro");
+		dados.setCor("Preto");
+		dados.setPeso(22.5);
+		dados.setPelos(true);
+		dados.setPatas(4);
+		ResponseEntity<Mamifero> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
+				new HttpEntity<>(dados), Mamifero.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals("Cachorro", response.getBody().nome()); 
+		assertEquals("Cachorro", response.getBody().getNome()); 
 	}
 	
 	@Test
 	void testAtualizarAereo() {
-		DadosAtualizacaoMamiferoRecord dados = new DadosAtualizacaoMamiferoRecord(2L, "Morcego", "Preto", 5.0, true, 2);
-		ResponseEntity<DadosDetalhamentoMamiferoRecord> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
-				new HttpEntity<>(dados), DadosDetalhamentoMamiferoRecord.class);
+		MamiferoAtualizacaoDTO dados = new MamiferoAtualizacaoDTO();
+		dados.setId(2L);
+		dados.setNome("Morcego");
+		dados.setCor("Preto");
+		dados.setPeso(0.100);
+		dados.setPelos(true);
+		dados.setPatas(4);
+		ResponseEntity<Mamifero> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
+				new HttpEntity<>(dados), Mamifero.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals("Morcego", response.getBody().nome()); 
+		assertEquals("Morcego", response.getBody().getNome()); 
 	}
 	
 	@Test
 	void testAtualizarAquatico() {
-		DadosAtualizacaoMamiferoRecord dados = new DadosAtualizacaoMamiferoRecord(3L, "Baleia", "Azul", 1000.5, false, 0);
-		ResponseEntity<DadosDetalhamentoMamiferoRecord> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
-				new HttpEntity<>(dados), DadosDetalhamentoMamiferoRecord.class);
+		MamiferoAtualizacaoDTO dados = new MamiferoAtualizacaoDTO();
+		dados.setId(2L);
+		dados.setNome("Baleia");
+		dados.setCor("Azul");
+		dados.setPeso(1000.0);
+		dados.setPelos(false);
+		dados.setPatas(0);
+		ResponseEntity<Mamifero> response = restTemplate.exchange("/mamiferos/atualizar", HttpMethod.PUT,
+				new HttpEntity<>(dados), Mamifero.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals("Baleia", response.getBody().nome()); 
+		assertEquals("Baleia", response.getBody().getNome()); 
 	}
 	
 	@Test

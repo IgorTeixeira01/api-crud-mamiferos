@@ -12,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import br.com.magna.animal.api.dto.MamiferoCadastroDTO;
 import br.com.magna.animal.api.model.Mamifero;
-import br.com.magna.animal.api.record.DadosCadastroMamiferoRecord;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -25,7 +25,17 @@ class TratadorDeErrosTest {
 	
 	@Test
 	void testCadastrar() {
-		DadosCadastroMamiferoRecord dados = new DadosCadastroMamiferoRecord(null, null, null, null, null, null, null, null, null, null);
+		MamiferoCadastroDTO dados = new MamiferoCadastroDTO();
+		dados.setNome(null);
+		dados.setCor(null);
+		dados.setPeso(null);
+		dados.setVertebradoInvertebrado(null);
+		dados.setTipoSangue(null);
+		dados.setPelos(null);
+		dados.setGlandulasMamarias(null);
+		dados.setPatas(null);
+		dados.setTipoMamifero(null);
+		dados.setAlimentacao(null);
 		ResponseEntity<String> response = restTemplate.postForEntity("/mamiferos/cadastrar", dados, String.class);
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
